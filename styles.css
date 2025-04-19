@@ -1,0 +1,527 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+:root {
+    --neon-blue: #00fff2;
+    --neon-purple: #b700ff;
+    --neon-pink: #ff00e6;
+    --neon-green: #39ff14;
+    --bg-dark: #0a0a20;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(45deg, #160033, #0a0050, #000266, #003366);
+    background-size: 400% 400%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: white;
+    animation: gradientBG 15s ease infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Arkaplan animasyonları */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    opacity: 0.2;
+    filter: blur(40px);
+    z-index: -1;
+    animation: float 10s infinite alternate;
+}
+
+body::before {
+    background-color: var(--neon-purple);
+    top: -100px;
+    left: -100px;
+}
+
+body::after {
+    background-color: var(--neon-blue);
+    bottom: -100px;
+    right: -100px;
+    animation-delay: 5s;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(50px, 50px) scale(1.5);
+    }
+
+    100% {
+        transform: translate(100px, 20px) scale(1);
+    }
+}
+
+.container {
+    text-align: center;
+    max-width: 500px;
+    padding: 40px;
+    background-color: rgba(10, 10, 32, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 242, 0.5),
+        0 0 40px rgba(183, 0, 255, 0.3),
+        inset 0 0 10px rgba(255, 0, 230, 0.2);
+    backdrop-filter: blur(5px);
+    animation: pulseShadow 3s infinite alternate;
+}
+
+@keyframes pulseShadow {
+    0% {
+        box-shadow: 0 0 20px rgba(0, 255, 242, 0.5),
+            0 0 40px rgba(183, 0, 255, 0.3),
+            inset 0 0 10px rgba(255, 0, 230, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 0 30px rgba(0, 255, 242, 0.8),
+            0 0 60px rgba(183, 0, 255, 0.5),
+            inset 0 0 15px rgba(255, 0, 230, 0.4);
+    }
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 5px rgba(0, 255, 242, 0.5),
+        0 0 10px rgba(183, 0, 255, 0.3);
+    animation: textGlow 2s infinite alternate;
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(0, 255, 242, 0.5),
+            0 0 10px rgba(183, 0, 255, 0.3);
+    }
+
+    100% {
+        text-shadow: 0 0 10px rgba(0, 255, 242, 0.8),
+            0 0 20px rgba(183, 0, 255, 0.6),
+            0 0 30px rgba(255, 0, 230, 0.4);
+    }
+}
+
+#status-message {
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    height: 30px;
+    color: white;
+    text-shadow: 0 0 5px var(--neon-green);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 10px;
+    margin: 0 auto 30px;
+    width: 320px;
+    perspective: 1000px;
+    position: relative;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--neon-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: rgba(10, 10, 32, 0.7);
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 0 5px var(--neon-blue),
+        inset 0 0 5px var(--neon-blue);
+    transform-style: preserve-3d;
+    animation: cellPulse 2s infinite alternate;
+}
+
+@keyframes cellPulse {
+    0% {
+        box-shadow: 0 0 5px var(--neon-blue),
+            inset 0 0 5px var(--neon-blue);
+    }
+
+    100% {
+        box-shadow: 0 0 10px var(--neon-blue),
+            0 0 15px var(--neon-blue),
+            inset 0 0 10px var(--neon-blue);
+    }
+}
+
+.cell:hover {
+    transform: translateZ(10px) scale(1.05);
+    box-shadow: 0 0 15px var(--neon-purple),
+        inset 0 0 15px var(--neon-purple);
+    background-color: rgba(183, 0, 255, 0.2);
+}
+
+.cell.x::before,
+.cell.o::before {
+    display: block;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cell.x::before {
+    content: "X";
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink),
+        0 0 20px var(--neon-pink);
+}
+
+.cell.o::before {
+    content: "O";
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px var(--neon-blue),
+        0 0 20px var(--neon-blue);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.2) rotate(10deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+#restart-button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-family: 'Orbitron', sans-serif;
+    background-color: transparent;
+    color: white;
+    border: 2px solid var(--neon-green);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    box-shadow: 0 0 10px var(--neon-green),
+        inset 0 0 5px var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green);
+    position: relative;
+    overflow: hidden;
+}
+
+#restart-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.4), transparent);
+    transition: 0.5s;
+}
+
+#restart-button:hover {
+    background-color: rgba(57, 255, 20, 0.2);
+    box-shadow: 0 0 20px var(--neon-green),
+        inset 0 0 10px var(--neon-green);
+    transform: translateY(-5px);
+}
+
+#restart-button:hover::before {
+    left: 100%;
+}
+
+/* Kazanan çizgisi ve patlama animasyonu */
+#win-line {
+    position: absolute;
+    background: linear-gradient(to right, var(--neon-green), var(--neon-blue));
+    height: 10px;
+    border-radius: 5px;
+    z-index: 10;
+    transform-origin: left center;
+    box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-blue);
+    display: none;
+    opacity: 0;
+}
+
+#win-line.active {
+    display: block;
+    animation: drawLine 0.5s ease forwards, pulseLine 1s 0.5s infinite alternate;
+}
+
+/* Yatay çizgiler */
+#win-line.horizontal-top {
+    width: 320px;
+    left: 0;
+    top: 50px;
+}
+
+#win-line.horizontal-middle {
+    width: 320px;
+    left: 0;
+    top: 160px;
+}
+
+#win-line.horizontal-bottom {
+    width: 320px;
+    left: 0;
+    top: 270px;
+}
+
+/* Dikey çizgiler */
+#win-line.vertical-left,
+#win-line.vertical-middle,
+#win-line.vertical-right {
+    width: 320px;
+    height: 10px;
+    transform-origin: center;
+    transform: rotate(90deg);
+}
+
+#win-line.vertical-left {
+    left: -110px;
+    top: 160px;
+}
+
+#win-line.vertical-middle {
+    left: 0px;
+    top: 160px;
+}
+
+#win-line.vertical-right {
+    left: 110px;
+    top: 160px;
+}
+
+/* Çapraz çizgiler */
+#win-line.diagonal-main,
+#win-line.diagonal-counter {
+    width: 450px;
+}
+
+#win-line.diagonal-main {
+    transform: rotate(45deg);
+    left: -65px;
+    top: 160px;
+}
+
+#win-line.diagonal-counter {
+    transform: rotate(-45deg);
+    left: -65px;
+    top: 160px;
+}
+
+@keyframes drawLine {
+    0% {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes pulseLine {
+    0% {
+        box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-blue);
+    }
+
+    100% {
+        box-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-blue);
+    }
+}
+
+.cell.winner {
+    animation: winner-animation 0.5s ease-in-out;
+}
+
+@keyframes winner-animation {
+
+    0%,
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+        filter: brightness(1.5);
+    }
+}
+
+.explosion {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--neon-pink), transparent);
+    transform: scale(0);
+    pointer-events: none;
+    z-index: 5;
+    animation: explode 0.6s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+/* Buton konteyneri */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Ses kontrolleri grubu */
+.audio-controls {
+    display: flex;
+    gap: 10px;
+}
+
+/* Müzik ve ses kontrol butonları */
+.control-button {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Müzik kontrol butonu */
+#music-toggle {
+    border: 2px solid var(--neon-blue);
+    color: white;
+    font-size: 1.2rem;
+    box-shadow: 0 0 10px var(--neon-blue),
+        inset 0 0 5px var(--neon-blue);
+}
+
+#music-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--neon-blue),
+        inset 0 0 10px var(--neon-blue);
+}
+
+#music-toggle i {
+    text-shadow: 0 0 5px var(--neon-blue);
+}
+
+#music-toggle.muted {
+    color: var(--neon-pink);
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 10px var(--neon-pink),
+        inset 0 0 5px var(--neon-pink);
+}
+
+#music-toggle.muted i {
+    text-shadow: 0 0 5px var(--neon-pink);
+}
+
+/* Ses efektleri kontrol butonu */
+#sound-toggle {
+    border: 2px solid var(--neon-green);
+    color: white;
+    font-size: 1.2rem;
+    box-shadow: 0 0 10px var(--neon-green),
+        inset 0 0 5px var(--neon-green);
+}
+
+#sound-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--neon-green),
+        inset 0 0 10px var(--neon-green);
+}
+
+#sound-toggle i {
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+#sound-toggle.muted {
+    color: var(--neon-pink);
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 10px var(--neon-pink),
+        inset 0 0 5px var(--neon-pink);
+}
+
+#sound-toggle.muted i {
+    text-shadow: 0 0 5px var(--neon-pink);
+}
+
+/* İptal çizgisi efekti */
+#sound-toggle.muted::after,
+#music-toggle.muted::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 40px;
+    height: 2px;
+    background-color: var(--neon-pink);
+    transform: translate(-50%, -50%) rotate(45deg);
+    box-shadow: 0 0 5px var(--neon-pink);
+}
